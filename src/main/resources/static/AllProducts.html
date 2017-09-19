@@ -6,8 +6,6 @@
     <title>Title</title>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
 </head>
@@ -253,10 +251,10 @@ margin-left: 90%;
 <script>
 
 function allproducts () {
-                $.getJSON('/api/product/all', function (data) {
-                let $tbody = $("#producttable");
-                for (let product of products) {
-                    let $row = $('<tr>')
+                $.getJSON("/api/product/all", function (data) {
+                var $tbody = $("#producttable");
+                for (var product of products) {
+                    var $row = $('<tr>')
                             .append($('<td>').text(product.id))
                             .append($('<td>').text(product.eanNumber))
                             .append($('<td>').text(product.name))
