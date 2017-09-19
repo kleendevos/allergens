@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<h1>PRODUCT</h1>
+
+<div>
+    <table id="producttable">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>EAN-NUMMER</th>
+            <th>MERK</th>
+            <th>PRODUCTNAAM</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td> id </td>
+            <td> ean - nummer </td>
+            <td> merk </td>
+            <td> productnaam </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+
+function allproducts () {
+                $.getJSON('/api/product/all', function (products) {
+                let $tbody = $("#producttable");
+                for (let product of products) {
+                    let $row = $('<tr>')
+                            .append($('<td>').text(product.id))
+                            .append($('<td>').text(product.EanNumber))
+                            .append($('<td>').text(product.name))
+                            .append($('<td>').text(product.brand));
+                        $tbody.append($row);
+                    }
+                });
+            }
+
+</script>
+
+</body>
+</html>
