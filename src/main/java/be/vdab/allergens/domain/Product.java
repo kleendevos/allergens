@@ -91,6 +91,10 @@ public class Product {
         this.categorie = categorie;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "Product{" +

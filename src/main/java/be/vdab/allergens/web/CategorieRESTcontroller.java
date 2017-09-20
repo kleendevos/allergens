@@ -32,4 +32,7 @@ public class CategorieRESTcontroller {
         return categorieRepository.findAll();
     }
 
+
+
+
 }

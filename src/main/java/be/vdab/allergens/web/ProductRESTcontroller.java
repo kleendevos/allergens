@@ -3,10 +3,9 @@ package be.vdab.allergens.web;
 import be.vdab.allergens.domain.Product;
 import be.vdab.allergens.repo.Productrepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,6 +28,15 @@ public class ProductRESTcontroller {
     @RequestMapping (method = RequestMethod.GET, path = "all", produces = "application/json")
     public List<Product> products(){
         return productrepository.findAll();
+    }
+
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+    public ResponseEntity<Product> create(@RequestBody Product input) {
+        if(input.getId() != null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        productrepository.save(input);
+        return new ResponseEntity<>(input, HttpStatus.CREATED);
     }
 
 
