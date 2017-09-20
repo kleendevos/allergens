@@ -28,7 +28,7 @@ insert into product (id, ean_number, brand, name, categorie_id) values (8000,'54
 insert into product (id, ean_number, brand, name, categorie_id) values (9000,'7622210995025','Cote dor','chocolade - melk met gekarameliseerde amandelen',1007);
 insert into product (id, ean_number, brand, name, categorie_id) values (9500,'23011731','Quorn','Vleesvervanger - italiaanse Blokjes', 1003);
 
-
+insert into product_allergens (product_id, allergens_id) values (1000,1000);
 
 
 

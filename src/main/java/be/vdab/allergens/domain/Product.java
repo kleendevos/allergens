@@ -72,7 +72,7 @@ public class Product {
     }
 
     public void setEanNumber(String eanNumber) {
-        eanNumber = eanNumber;
+        this.eanNumber = eanNumber;
     }
 
     public String getBrand() {

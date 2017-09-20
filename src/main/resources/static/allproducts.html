@@ -11,111 +11,132 @@
     <style>
 
 
-body{
-font-family: 'Roboto Condensed', sans-serif;
-}
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
 
-header {
-Background-color: #0e2f44;}
+        header {
+            Background-color: #0e2f44;
+        }
 
+        article {
+            display: flex;
+            align-items: start;
+        }
 
-article {
-  display: flex;
-  align-items: start;
-}
-article:nth-child(odd) {
-  flex-direction: row;
-}
-article:nth-child(even) {
-  flex-direction: row-reverse;
-}
-.wrapper {
-  display: flex;
-  flex-direction: column;
-}
+        article:nth-child(odd) {
+            flex-direction: row;
+        }
 
-.headertekst{
-width: 900px;
-margin: 0 auto;
-text-align: center;
-}
+        article:nth-child(even) {
+            flex-direction: row-reverse;
+        }
 
-nav {
-  display: flex;
-  justify-content: space-around;
-  Background-color: #0e2f44;
-  color: white;
-  padding: 30px;
-}
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+        }
 
+        .headertekst {
+            width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
 
+        nav {
+            display: flex;
+            justify-content: space-around;
+            Background-color: #0e2f44;
+            color: white;
+            padding: 30px;
+        }
 
-a:link { color:white;
-text-decoration: none;}
-a:visited {color: white;
-text-decoration: none;}
-a:hover {color : #00cf97;
-text-decoration: none;}
-a: active{text-decoration: none;
-color: #00cf97;
-}
+        a:link {
+            color: white;
+            text-decoration: none;
+        }
 
-.zoekfunctie{
-width: 900px;
-margin: 0 auto;
-}
+        a:visited {
+            color: white;
+            text-decoration: none;
+        }
 
-form{
-background:#00cf97;
-color: white;
-padding: 10px;
-padding-bottom: 30px;
-margin: 10px;
-display: block;
+        a:hover {
+            color: #00cf97;
+            text-decoration: none;
+        }
 
-}
+        a: active {
+            text-decoration: none;
+            color: #00cf97;
+        }
 
-form h1{
-font-size: 200%
-}
+        .zoekfunctie {
+            width: 900px;
+            margin: 0 auto;
+        }
 
-#zoekfunctie {
-background-image: url("https://www.kazou.be/KazouWWW/Frontend/images/uploads/bannerthemapagina_mixed.jpg");
-}
+        form {
+            background: #00cf97;
+            color: white;
+            padding: 10px;
+            padding-bottom: 30px;
+            margin: 10px;
+            display: block;
 
-.productoverzicht{
-width: 800px;
-margin: 0 auto;
-}
+        }
 
-#producttable {
-  text-align: left;
-  line-height: 40px;
-  border-collapse: separate;
-  border-spacing: 0;
-  border: 2px solid #0e2f44;
-  width: 800px;
-  margin: 50px auto;
-  border-radius: .25rem;
+        form h1 {
+            font-size: 200%
+        }
 
+        #zoekfunctie {
+            background-image: url("https://www.kazou.be/KazouWWW/Frontend/images/uploads/bannerthemapagina_mixed.jpg");
+        }
 
-}
+        .productoverzicht {
+            width: 800px;
+            margin: 0 auto;
+        }
 
-.tableheader{
-background: #0e2f44;
-  color: #fff;
-  border: none;}
+        #producttable {
+            text-align: left;
+            line-height: 40px;
+            border-collapse: separate;
+            border-spacing: 0;
+            border: 2px solid #0e2f44;
+            width: 800px;
+            margin: 50px auto;
+            border-radius: .25rem;
 
-#button{
-background-color: #0e2f44;
-color: white;
-text-decoration: none;
-border: none;
-padding: 15px;
-text-align: right;
-display: inline-block;
-margin-left: 90%;
-}
+        }
+
+        .tableheader {
+            background: #0e2f44;
+            color: #fff;
+            border: none;
+        }
+
+        #button {
+            background-color: #0e2f44;
+            color: white;
+            text-decoration: none;
+            border: none;
+            padding: 15px;
+            text-align: right;
+            display: inline-block;
+            margin-left: 90%;
+            margin-top: 10px;
+        }
+
+        #invulformulier {
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        #invullink {
+            color: black;
+        }
 
 
 
@@ -146,7 +167,7 @@ margin-left: 90%;
 
         <article>
 
-            <div class = zoekfunctie>
+            <div class=zoekfunctie>
 
                 <form>
                     <h1>ZOEK PRODUCT</h1>
@@ -162,8 +183,9 @@ margin-left: 90%;
                             <td>selecteer Allergieinfo</td>
                         </tr>
                         <tr>
-                            <td>Zoek op artikel </td>
-                        <td><input id="searchByName" type="text" value="" placeholder="productnaam" size="30"><br></td>
+                            <td>Zoek op artikel</td>
+                            <td><input id="searchByName" type="text" value="" placeholder="productnaam" size="30"><br>
+                            </td>
                             <td>
                                 <label>GLutenvrij</label>
                                 <input type="checkbox" name="allergie" value="optie 1">
@@ -179,12 +201,13 @@ margin-left: 90%;
                         </tr>
 
                         <tr>
-                            <td>Zoek op EAN-nummer </td>
-                        <td><input id="searchByEANNummer" type="search" value="" placeholder="EAN Nummer" size="30"><br></td>
+                            <td>Zoek op EAN-nummer</td>
+                            <td><input id="searchByEANNummer" type="search" value="" placeholder="EAN Nummer" size="30"><br>
+                            </td>
 
                         </tr>
                     </table>
-                    <input id=button type="submit" value="zoek">
+                    <!--<input id=button type="submit" value="zoek">-->
 
                 </form>
 
@@ -192,7 +215,7 @@ margin-left: 90%;
             </div>
             <div>
 
-                <p> </p>
+                <p></p>
             </div>
 
         </article>
@@ -200,40 +223,70 @@ margin-left: 90%;
     </section>
 
 
-    <div class="productoverzicht" >
-    <h2>PRODUCT OVERZICHT</h2>
-    <div class="table">
-        <table id="producttable">
-            <thead>
-            <tr class="tableheader">
-                <th>EAN-NUMMER</th>
-                <th>PRODUCTNAAM</th>
-                <th>MERK</th>
-                <th>CATEGORIE</th>
+    <div class="productoverzicht">
+        <h2>PRODUCT OVERZICHT</h2>
 
-            </tr>
-            </thead>
-            <tbody id="producttablebody">
-            <tr>
-                <td> ean - nummer </td>
-                <td> merk </td>
-                <td> productnaam </td>
-                <th>categorie</th>
-            </tr>
-            </tbody>
-        </table>
+        <a id="invullink" href="#invulformulier"> VOEG ARTIKEL TOE </a>
+
+        <div class="table">
+            <table id="producttable">
+                <thead>
+                <tr class="tableheader">
+                    <th>EAN-NUMMER</th>
+                    <th>PRODUCTNAAM</th>
+                    <th>MERK</th>
+                    <th>CATEGORIE</th>
+
+                </tr>
+                </thead>
+                <tbody id="producttablebody">
+                <tr>
+                    <td> ean - nummer</td>
+                    <td> merk</td>
+                    <td> productnaam</td>
+                    <th>categorie</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+
+    <div id="invulformulier">
+        <form>
+            <h1>VOEG ARTIKEL TOE </h1>
+            <input id="EAN-NUMMER" type="text" placeholder="EAN-NUMMER">
+            <input id="PRODUCTNAAM" type="text" placeholder="PRODUCTNAAM">
+            <input id="MERK" type="text" placeholder="MERK">
+            <select id="CATEGORIE" name="categorie">
+                <option value="">-------- Maak hier je keuze --------</option>
+                <option value="">Fruit, groenten en noten</option>
+                <option value="">dranken</option>
+                <option value="">zuivel</option>
+                <option value="">vlees, vis en vleesvervangers</option>
+                <option value="">brood en graanproducten</option>
+                <option value="">vetten en oliën</option>
+                <option value="">snacks</option>
+                <option value="">soepen en bouillons</option>
+                <option value="">kruiden</option>
+                <option value="">meel, bloem en bindmiddelen</option>
+            </select>
+            <input id=button type="submit" value="opslaan">
+        </form>
+
     </div>
+
+
 </div>
 
 
 <script>
 
-    function allproducts () {
+    function allproducts() {
         $.getJSON("/api/product/all", function (data) {
-        var $tbody = $("#producttablebody").empty();
-        for (var product of data) {
-            var $row = $('<tr>')
+            var $tbody = $("#producttablebody").empty();
+            for (var product of data) {
+                var $row = $('<tr>')
                     .append($('<td>').text(product.eanNumber))
                     .append($('<td>').text(product.name))
                     .append($('<td>').text(product.brand))
@@ -243,53 +296,79 @@ margin-left: 90%;
         });
     }
 
-   function searchByEannummer (){
-   $('#searchByEANNummer').on('keyup', function(e) {
-    if ('' != this.value) {
-        var reg = new RegExp(this.value, 'i'); // case-insesitive
+    function searchByEannummer() {
+        $('#searchByEANNummer').on('keyup', function (e) {
+            if ('' != this.value) {
+                var reg = new RegExp(this.value, 'i'); // case-insesitive
 
-        $('#producttablebody').find('tr').each(function() {
-            var $me = $(this);
-            if (!$me.children('td:first').text().match(reg)) {
-                $me.hide();
+                $('#producttablebody').find('tr').each(function () {
+                    var $me = $(this);
+                    if (!$me.children('td:first').text().match(reg)) {
+                        $me.hide();
+                    } else {
+                        $me.show();
+                    }
+                });
             } else {
-                $me.show();
+                $('#producttablebody').find('tr').show();
             }
         });
-    } else {
-        $('#producttablebody').find('tr').show();
     }
-});}
 
-function searchByName (){
-   $('#searchByName').on('keyup', function(e) {
-    if ('' != this.value) {
-        var reg = new RegExp(this.value, 'i'); // case-insesitive
+    function searchByName() {
+        $('#searchByName').on('keyup', function (e) {
+            if ('' != this.value) {
+                var reg = new RegExp(this.value, 'i'); // case-insesitive
 
-        $('#producttablebody').find('tr').each(function() {
-            var $me = $(this);
-            if (!$me.children('td').text().match(reg)) {
-                $me.hide();
+                $('#producttablebody').find('tr').each(function () {
+                    var $me = $(this);
+                    if (!$me.children('td').text().match(reg)) {
+                        $me.hide();
+                    } else {
+                        $me.show();
+                    }
+                });
             } else {
-                $me.show();
+                $('#producttablebody').find('tr').show();
             }
         });
-    } else {
-        $('#producttablebody').find('tr').show();
     }
-});}
+
+    $("#invulformulier").submit(function (e) {
+        e.preventDefault();
+
+        let product = {
+            eannummer: $(this.eanNumber).val(),
+            productnaam: $(this.name).val(),
+            merk: $(this.brand).val(),
+            categorie: $(this.categorie).val()
+        };
+
+        $.ajax({
+            method: 'post',
+            url: '/api/product',
+            contentType: 'application/json',
+            data: JSON.stringify(product),
+            processData: false,
+            success: function () {
+                allproducts();
+
+            }
+        });
+
+    });
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         allproducts();
 
-        searchByEannummer ();
+        searchByEannummer();
 
-        searchByName ();
+        searchByName();
 
 
-     });
+    });
 
 
 

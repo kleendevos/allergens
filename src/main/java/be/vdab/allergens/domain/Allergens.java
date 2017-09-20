@@ -21,6 +21,8 @@ public class Allergens {
     @Column
     private String name;
 
+    public Allergens() {
+    }
 
     public Allergens(String name) {
         this.name = name;
