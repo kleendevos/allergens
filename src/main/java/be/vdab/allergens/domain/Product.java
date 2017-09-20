@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Product {
@@ -23,9 +24,19 @@ public class Product {
     @Column
     private String brand;
 
-    @ManyToOne (targetEntity = Product.class)
+    @ManyToOne
     Categorie categorie;
 
+    @ManyToMany
+    public List <Allergens> allergens = new ArrayList<>();
+
+    public List<Allergens> getAllergens() {
+        return allergens;
+    }
+
+    public void setAllergens(List<Allergens> allergens) {
+        this.allergens = allergens;
+    }
 
     public Product() {
     }
@@ -47,12 +58,6 @@ public class Product {
         this.name = name;
         this.brand = brand;
     }
-
-
-
-
-
-
 
     public String getName() {
         return name;
@@ -84,9 +89,6 @@ public class Product {
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
-        if (categorie != null) {
-            categorie.addProduct(this);
-        }
     }
 
     @Override

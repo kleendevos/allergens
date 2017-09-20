@@ -16,9 +16,6 @@ public class Categorie {
     @Column
     private String categorie;
 
-    @OneToMany
-    private List<Product> productList = new ArrayList<>();
-
     public Categorie(String categorie) {
         this.categorie = categorie;
     }
@@ -50,7 +47,4 @@ public class Categorie {
                 '}';
     }
 
-    public void addProduct(Product product) {
-
-    }
 }

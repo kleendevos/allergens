@@ -8,10 +8,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
-</head>
-<body>
-
-<Style>
+    <style>
 
 
 body{
@@ -122,12 +119,13 @@ margin-left: 90%;
 
 
 
-</Style>
+</style>
 
-
-<html>
-<div class="headerboord"></div>
+</head>
 <body>
+
+<div class="headerboord"></div>
+
 <div class="wrapper">
     <header>
 
@@ -157,9 +155,8 @@ margin-left: 90%;
                         <tr>
                             <td><Label>Selecteer categorie</Label></td>
                             <td>
-                                <select name="categorie">
+                                <select name="drop down" id="dropdownmenu">
                                     <option value="">-------- Maak hier je keuze --------</option>
-                                    <option value="">optie 2</option>
                                 </select>
                             </td>
                             <td>selecteer Allergieinfo</td>
@@ -183,7 +180,7 @@ margin-left: 90%;
 
                         <tr>
                             <td>Zoek op EAN-nummer </td>
-                        <td><input id="searchByEANNummer" type="text" value="" placeholder="EAN Nummer" size="30"><br></td>
+                        <td><input id="searchByEANNummer" type="search" value="" placeholder="EAN Nummer" size="30"><br></td>
 
                         </tr>
                     </table>
@@ -209,60 +206,98 @@ margin-left: 90%;
         <table id="producttable">
             <thead>
             <tr class="tableheader">
-                <th>id</th>
                 <th>EAN-NUMMER</th>
-                <th>MERK</th>
                 <th>PRODUCTNAAM</th>
+                <th>MERK</th>
+                <th>CATEGORIE</th>
+
             </tr>
             </thead>
-            <tbody>
+            <tbody id="producttablebody">
             <tr>
-                <td> id </td>
                 <td> ean - nummer </td>
                 <td> merk </td>
                 <td> productnaam </td>
+                <th>categorie</th>
             </tr>
             </tbody>
         </table>
     </div>
     </div>
 </div>
-</body>
-</html>
 
-
-
-
-
-
-</header>
-
-<main class="main">
-
-
-
-
-
-</main>
-
-
-</div>
 
 <script>
 
-function allproducts () {
-                $.getJSON("/api/product/all", function (data) {
-                var $tbody = $("#producttable");
-                for (var product of products) {
-                    var $row = $('<tr>')
-                            .append($('<td>').text(product.id))
-                            .append($('<td>').text(product.eanNumber))
-                            .append($('<td>').text(product.name))
-                            .append($('<td>').text(product.brand));
-                        $tbody.append($row);
-                    }
-                });
+    function allproducts () {
+        $.getJSON("/api/product/all", function (data) {
+        var $tbody = $("#producttablebody").empty();
+        for (var product of data) {
+            var $row = $('<tr>')
+                    .append($('<td>').text(product.eanNumber))
+                    .append($('<td>').text(product.name))
+                    .append($('<td>').text(product.brand))
+                    .append($('<td>').text(product.categorie.categorie));
+                $tbody.append($row);
             }
+        });
+    }
+
+   function searchByEannummer (){
+   $('#searchByEANNummer').on('keyup', function(e) {
+    if ('' != this.value) {
+        var reg = new RegExp(this.value, 'i'); // case-insesitive
+
+        $('#producttablebody').find('tr').each(function() {
+            var $me = $(this);
+            if (!$me.children('td:first').text().match(reg)) {
+                $me.hide();
+            } else {
+                $me.show();
+            }
+        });
+    } else {
+        $('#producttablebody').find('tr').show();
+    }
+});}
+
+function searchByName (){
+   $('#searchByName').on('keyup', function(e) {
+    if ('' != this.value) {
+        var reg = new RegExp(this.value, 'i'); // case-insesitive
+
+        $('#producttablebody').find('tr').each(function() {
+            var $me = $(this);
+            if (!$me.children('td').text().match(reg)) {
+                $me.hide();
+            } else {
+                $me.show();
+            }
+        });
+    } else {
+        $('#producttablebody').find('tr').show();
+    }
+});}
+
+
+    $(document).ready(function() {
+
+        allproducts();
+
+        searchByEannummer ();
+
+        searchByName ();
+
+
+     });
+
+
+
+
+
+
+
+
 
 </script>
 
