@@ -56,17 +56,12 @@
             text-decoration: none;
         }
 
-        a:visited {
-            color: white;
-            text-decoration: none;
-        }
-
         a:hover {
             color: #00cf97;
             text-decoration: none;
         }
 
-        a: active {
+        a:active {
             text-decoration: none;
             color: #00cf97;
         }
@@ -116,6 +111,9 @@
             color: #fff;
             border: none;
         }
+
+        #producttablebody{
+            font-size: 10px;}
 
         #button {
             background-color: #0e2f44;
@@ -176,7 +174,7 @@
                         <tr>
                             <td><Label>Selecteer categorie</Label></td>
                             <td>
-                                <select name="drop down" id="dropdownmenu">
+                                <select name="drop down" id="dropdownmenu" onchange="searchByCategorie()">
                                     <option value="">-------- Maak hier je keuze --------</option>
                                 </select>
                             </td>
@@ -236,15 +234,18 @@
                     <th>PRODUCTNAAM</th>
                     <th>MERK</th>
                     <th>CATEGORIE</th>
+                    <th>ALLERGIEINFO</th>
+
 
                 </tr>
                 </thead>
                 <tbody id="producttablebody">
-                <tr>
+                <tr id="content">
                     <td> ean - nummer</td>
                     <td> merk</td>
                     <td> productnaam</td>
                     <th>categorie</th>
+                    <th>allergie-info</th>
                 </tr>
                 </tbody>
             </table>
@@ -255,22 +256,12 @@
     <div id="invulformulier">
         <form>
             <h1>VOEG ARTIKEL TOE </h1>
-            <input id="EAN-NUMMER" type="text" placeholder="EAN-NUMMER">
-            <input id="PRODUCTNAAM" type="text" placeholder="PRODUCTNAAM">
-            <input id="MERK" type="text" placeholder="MERK">
-            <select id="CATEGORIE" name="categorie">
-                <option value="">-------- Maak hier je keuze --------</option>
-                <option value="">Fruit, groenten en noten</option>
-                <option value="">dranken</option>
-                <option value="">zuivel</option>
-                <option value="">vlees, vis en vleesvervangers</option>
-                <option value="">brood en graanproducten</option>
-                <option value="">vetten en oliën</option>
-                <option value="">snacks</option>
-                <option value="">soepen en bouillons</option>
-                <option value="">kruiden</option>
-                <option value="">meel, bloem en bindmiddelen</option>
-            </select>
+            <input id="eanNumber" type="text" placeholder="EAN-NUMMER">
+            <input id="name" type="text" placeholder="PRODUCTNAAM">
+            <input id="brand" type="text" placeholder="MERK">
+            <!--<select id="categorie" name="categorie">
+                <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Maak hier je keuze &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+            </select>-->
             <input id=button type="submit" value="opslaan">
         </form>
 
@@ -282,6 +273,26 @@
 
 <script>
 
+    $.getJSON ("/api/categorie/all", function(option)
+    {
+       var $dropdown = $("#dropdownmenu");
+       for (var categorie of option) {
+           var $option = $('<option>')
+               .append($('<option>').text(categorie.categorie));
+           $dropdown.append($option);
+       }
+    });
+
+    $.getJSON ("/api/categorie/all", function(option)
+    {
+        var $dropdown = $("#categorie");
+        for (var categorie of option) {
+            var $option = $('<option>')
+                .append($('<option>').text(categorie.categorie));
+            $dropdown.append($option);
+        }
+    });
+
     function allproducts() {
         $.getJSON("/api/product/all", function (data) {
             var $tbody = $("#producttablebody").empty();
@@ -290,7 +301,8 @@
                     .append($('<td>').text(product.eanNumber))
                     .append($('<td>').text(product.name))
                     .append($('<td>').text(product.brand))
-                    .append($('<td>').text(product.categorie.categorie));
+                    .append($('<td>').text(product.categorie.categorie))
+                    .append($('<td>').text(product.allergens.name));
                 $tbody.append($row);
             }
         });
@@ -299,7 +311,7 @@
     function searchByEannummer() {
         $('#searchByEANNummer').on('keyup', function (e) {
             if ('' != this.value) {
-                var reg = new RegExp(this.value, 'i'); // case-insesitive
+                var reg = new RegExp(this.value, 'i');
 
                 $('#producttablebody').find('tr').each(function () {
                     var $me = $(this);
@@ -334,15 +346,31 @@
         });
     }
 
-    $("#invulformulier").submit(function (e) {
+    function searchByCategorie() {
+            var reg = new RegExp($('#dropdownmenu').val());
+            if (reg == "/-------- Maak hier je keuze --------/"){clearFilter()}
+            else{
+                $('#producttablebody').hide();
+                $('#producttablebody').filter(function () {
+                    return reg.test($(this).text());
+                }).show();
+            }
+    }
+
+    function clearFilter(){
+        $('#dropdownmenu').val('');
+        $('#producttablebody').show();
+    }
+
+    $("#invulformulier").submit(function(e) {
         e.preventDefault();
 
-        let product = {
-            eannummer: $(this.eanNumber).val(),
-            productnaam: $(this.name).val(),
-            merk: $(this.brand).val(),
-            categorie: $(this.categorie).val()
-        };
+        var product = {
+        eanNumber : $('#eanNumber').val(),
+        name: $('#name').val(),
+        brand:$('#brand').val(),
+        //categorie : $('#categorie').val()
+    };
 
         $.ajax({
             method: 'post',
@@ -352,11 +380,12 @@
             processData: false,
             success: function () {
                 allproducts();
-
             }
         });
 
     });
+
+    allproducts();
 
 
     $(document).ready(function () {
@@ -369,6 +398,7 @@
 
 
     });
+
 
 
 

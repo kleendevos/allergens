@@ -14,7 +14,6 @@ insert into categorie (id, categorie) values (1010, 'meel, bloem en bindmiddelen
 insert into allergens (id, name) values (1000, "Glutenvrij");
 insert into allergens (id, name) values (1001, "Lactosevrij");
 insert into allergens (id, name) values (1002, "Veganistisch");
-insert into allergens (id, name) values (1003, "Vegatarisch");
 
 
 insert into product (id, ean_number, brand, name, categorie_id) values (1000,'8722700250494','Becel','smeerboter Boter',1006);
@@ -26,9 +25,35 @@ insert into product (id, ean_number, brand, name, categorie_id) values (6000,'87
 insert into product (id, ean_number, brand, name, categorie_id) values (7000,'5412158005915','Biofood','pijnboompitten',1000);
 insert into product (id, ean_number, brand, name, categorie_id) values (8000,'5412158004123','Biofood','quinoa',1005);
 insert into product (id, ean_number, brand, name, categorie_id) values (9000,'7622210995025','Cote dor','chocolade - melk met gekarameliseerde amandelen',1007);
-insert into product (id, ean_number, brand, name, categorie_id) values (9500,'23011731','Quorn','Vleesvervanger - italiaanse Blokjes', 1003);
+insert into product (id, ean_number, brand, name, categorie_id) values (9500,'8710445016406','Continental Bakeries','Rijstwafels melkchocolade', 1007);
+insert into product (id, ean_number, brand, name, categorie_id) values (9600,'8718026420000','Bio+','Crunch ‘n Flakes', 1004);
 
 insert into product_allergens (product_id, allergens_id) values (1000,1000);
+insert into product_allergens (product_id, allergens_id) values (1000,1001);
+insert into product_allergens (product_id, allergens_id) values (2000,1001);
+insert into product_allergens (product_id, allergens_id) values (2000,1001);
+insert into product_allergens (product_id, allergens_id) values (3000,1001);
+insert into product_allergens (product_id, allergens_id) values (3000,1002);
+insert into product_allergens (product_id, allergens_id) values (4000,1000);
+insert into product_allergens (product_id, allergens_id) values (4000,1001);
+insert into product_allergens (product_id, allergens_id) values (9600,1002);
+insert into product_allergens (product_id, allergens_id) values (5000,1001);
+insert into product_allergens (product_id, allergens_id) values (6000,1000);
+insert into product_allergens (product_id, allergens_id) values (6000,1002);
+insert into product_allergens (product_id, allergens_id) values (7000,1000);
+insert into product_allergens (product_id, allergens_id) values (7000,1001);
+insert into product_allergens (product_id, allergens_id) values (7000,1002);
+insert into product_allergens (product_id, allergens_id) values (8000,1000);
+insert into product_allergens (product_id, allergens_id) values (8000,1001);
+insert into product_allergens (product_id, allergens_id) values (8000,1002);
+insert into product_allergens (product_id, allergens_id) values (9000,1000);
+insert into product_allergens (product_id, allergens_id) values (9500,1000);
+insert into product_allergens (product_id, allergens_id) values (9500,1002);
+
+
+
+
+
 
 
 
