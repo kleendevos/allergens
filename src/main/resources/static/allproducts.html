@@ -273,27 +273,19 @@
 
 </div>
 
-
 <script>
 
-    $.getJSON ("/api/categorie/all", function(option)
-    {
-       let $dropdown = $("#dropdownmenu");
-       for (let categorie of option) {
-           let $option = $('<option>')
-               .append($('<option>').text(categorie.categorie));
-           $dropdown.append($option);
-       }
-    });
+    function addOptionsToSelect($select, categories) {
+        for (let categorie of categories) {
+            let $option = $('<option>').attr("value", categorie.id).text(categorie.categorie);
+            $select.append($option);
+        }
+    }
 
     $.getJSON ("/api/categorie/all", function(option)
     {
-        let $dropdown = $("#categorie");
-        for (let categorie of option) {
-            let $option = $('<option>')
-                .append($('<option>').text(categorie.categorie));
-            $dropdown.append($option);
-        }
+        addOptionsToSelect($("#dropdownmenu"), option);
+        addOptionsToSelect($("#categorie"), option);
     });
 
 
@@ -310,12 +302,18 @@
 //                    }
 //                }
 
+
+                //console.log(product.allergens);
+
+                console.log();
+
+
                 let $row = $('<tr>')
                     .append($('<td>').text(product.eanNumber))
                     .append($('<td>').text(product.name))
                     .append($('<td>').text(product.brand))
                     .append($('<td>').text(product.categorie.categorie))
-                    .append($('<td>').text(product.allergens));
+                    .append($('<td>').text(product.allergens.map(o => o.name).join(', ')));
                 $tbody.append($row);
             }
         });
@@ -386,7 +384,10 @@
         eanNumber : $('#eanNumber').val(),
         name: $('#name').val(),
         brand:$('#brand').val(),
-        categoriename :$('#categorie').val()
+
+        categorie: {
+            id: $('#categorie').val()
+        }
 
     };
 
