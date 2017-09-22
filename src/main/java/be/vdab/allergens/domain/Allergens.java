@@ -21,7 +21,23 @@ public class Allergens {
     @Column
     private String name;
 
+    @Column
+    private String shortName;
+
     public Allergens() {
+    }
+
+    public Allergens(String name, String shortName) {
+        this.name = name;
+        this.shortName = shortName;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
+
+    public void setShortName(String shortName) {
+        this.shortName = shortName;
     }
 
     public Allergens(String name) {
@@ -47,7 +63,6 @@ public class Allergens {
     @Override
     public String toString() {
         return "Allergens{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }

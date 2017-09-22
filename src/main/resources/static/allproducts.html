@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
     <style>
@@ -175,7 +175,7 @@
                             <td><Label>Selecteer categorie</Label></td>
                             <td>
                                 <select name="drop down" id="dropdownmenu" onchange="searchByCategorie()">
-                                    <option value="">-------- Maak hier je keuze --------</option>
+                                    <option selected>-------- Maak hier je keuze --------</option>
                                 </select>
                             </td>
                             <td>selecteer Allergieinfo</td>
@@ -189,12 +189,8 @@
                                 <input type="checkbox" name="allergie" value="optie 1">
                                 <label>Lactosevrij</label>
                                 <input type="checkbox" name="allergie" value="optie 2">
-                                <label>allergie 3</label>
+                                <label>vegan</label>
                                 <input type="checkbox" name="allergie" value="optie 3">
-                                <label>allergie 4</label>
-                                <input type="checkbox" name="allergie" value="optie 4">
-                                <label>allergie 5</label>
-                                <input type="checkbox" name="allergie" value="optie 5">
                             </td>
                         </tr>
 
@@ -244,8 +240,8 @@
                     <td> ean - nummer</td>
                     <td> merk</td>
                     <td> productnaam</td>
-                    <th>categorie</th>
-                    <th>allergie-info</th>
+                    <td class="categorie">categorie</td>
+                    <td>allergie-info</td>
                 </tr>
                 </tbody>
             </table>
@@ -259,9 +255,16 @@
             <input id="eanNumber" type="text" placeholder="EAN-NUMMER">
             <input id="name" type="text" placeholder="PRODUCTNAAM">
             <input id="brand" type="text" placeholder="MERK">
-            <!--<select id="categorie" name="categorie">
-                <option value="">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Maak hier je keuze &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-            </select>-->
+            <select id="categorie">
+                <option value="default">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Maak hier je keuze &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+            </select>
+            <br/>
+            <label>Glutenvrij</label>
+            <input type="checkbox" name="allergie" id="gluten" onclick="">
+            <label>Lactosevrij</label>
+            <input type="checkbox" name="allergie" id="lactose" value="optie 2">
+            <label>Veganistisch </label>
+            <input type="checkbox" name="allergie" id="vegan" value="optie 3">
             <input id=button type="submit" value="opslaan">
         </form>
 
@@ -275,9 +278,9 @@
 
     $.getJSON ("/api/categorie/all", function(option)
     {
-       var $dropdown = $("#dropdownmenu");
-       for (var categorie of option) {
-           var $option = $('<option>')
+       let $dropdown = $("#dropdownmenu");
+       for (let categorie of option) {
+           let $option = $('<option>')
                .append($('<option>').text(categorie.categorie));
            $dropdown.append($option);
        }
@@ -285,24 +288,34 @@
 
     $.getJSON ("/api/categorie/all", function(option)
     {
-        var $dropdown = $("#categorie");
-        for (var categorie of option) {
-            var $option = $('<option>')
+        let $dropdown = $("#categorie");
+        for (let categorie of option) {
+            let $option = $('<option>')
                 .append($('<option>').text(categorie.categorie));
             $dropdown.append($option);
         }
     });
 
+
     function allproducts() {
         $.getJSON("/api/product/all", function (data) {
-            var $tbody = $("#producttablebody").empty();
-            for (var product of data) {
-                var $row = $('<tr>')
+            let $tbody = $("#producttablebody").empty();
+            for (let product of data) {
+//                function allergens() {
+//                    for (let product of data) {
+//                        x = product.allergens[0];
+//                        for (i in product.allergens) {
+//                            x += product.allergens[i] + ",";
+//                        }
+//                    }
+//                }
+
+                let $row = $('<tr>')
                     .append($('<td>').text(product.eanNumber))
                     .append($('<td>').text(product.name))
                     .append($('<td>').text(product.brand))
                     .append($('<td>').text(product.categorie.categorie))
-                    .append($('<td>').text(product.allergens.name));
+                    .append($('<td>').text(product.allergens));
                 $tbody.append($row);
             }
         });
@@ -347,29 +360,34 @@
     }
 
     function searchByCategorie() {
-            var reg = new RegExp($('#dropdownmenu').val());
-            if (reg == "/-------- Maak hier je keuze --------/"){clearFilter()}
-            else{
-                $('#producttablebody').hide();
-                $('#producttablebody').filter(function () {
-                    return reg.test($(this).text());
-                }).show();
-            }
+       var choice = new RegExp($('#dropdownmenu').val());
+       if (choice = "/-------- Maak hier je keuze --------/"){clearFilter()}
+       else {
+           $('#producttablebody').filter(function () {
+               return choice.test($(this).text());
+           }).show();
+       }
     }
 
-    function clearFilter(){
-        $('#dropdownmenu').val('');
+    function clearFilter() {
         $('#producttablebody').show();
     }
+
+    function searchcat (){
+        var a = $('#producttablebody').on ('change', filter);
+        var b = $
+    }
+
 
     $("#invulformulier").submit(function(e) {
         e.preventDefault();
 
-        var product = {
+        let product = {
         eanNumber : $('#eanNumber').val(),
         name: $('#name').val(),
         brand:$('#brand').val(),
-        //categorie : $('#categorie').val()
+        categoriename :$('#categorie').val()
+
     };
 
         $.ajax({
@@ -384,8 +402,8 @@
         });
 
     });
-
     allproducts();
+
 
 
     $(document).ready(function () {
@@ -395,7 +413,6 @@
         searchByEannummer();
 
         searchByName();
-
 
     });
 
