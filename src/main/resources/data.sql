@@ -29,16 +29,28 @@ insert into product (id, ean_number, brand, name, categorie_id) values (9500,'87
 insert into product (id, ean_number, brand, name, categorie_id) values (9600,'8718026420000','Bio+','Crunch ‘n Flakes', 1004);
 
 insert into product_allergens (product_id, allergens_id) values (1000,1000);
+insert into product_allergens (product_id, allergens_id) values (1000,1001);
 insert into product_allergens (product_id, allergens_id) values (2000,1001);
+insert into product_allergens (product_id, allergens_id) values (2000,1002);
 insert into product_allergens (product_id, allergens_id) values (3000,1001);
+insert into product_allergens (product_id, allergens_id) values (3000,1000);
 insert into product_allergens (product_id, allergens_id) values (4000,1000);
+insert into product_allergens (product_id, allergens_id) values (4000,1001);
+insert into product_allergens (product_id, allergens_id) values (4000,1002);
 insert into product_allergens (product_id, allergens_id) values (9600,1002);
+insert into product_allergens (product_id, allergens_id) values (2000,1001);
 insert into product_allergens (product_id, allergens_id) values (5000,1001);
+insert into product_allergens (product_id, allergens_id) values (5000,1002);
 insert into product_allergens (product_id, allergens_id) values (6000,1000);
+insert into product_allergens (product_id, allergens_id) values (6000,1001);
 insert into product_allergens (product_id, allergens_id) values (7000,1000);
+insert into product_allergens (product_id, allergens_id) values (7000,1001);
 insert into product_allergens (product_id, allergens_id) values (8000,1000);
+insert into product_allergens (product_id, allergens_id) values (8000,1002);
 insert into product_allergens (product_id, allergens_id) values (9000,1000);
+insert into product_allergens (product_id, allergens_id) values (9000,1001);
 insert into product_allergens (product_id, allergens_id) values (9500,1000);
+insert into product_allergens (product_id, allergens_id) values (9500,1001);
 
 
 

@@ -185,12 +185,8 @@
                             <td><input id="searchByName" type="text" value="" placeholder="productnaam" size="30"><br>
                             </td>
                             <td>
-                                <label>GLutenvrij</label>
-                                <input type="checkbox" name="allergie" value="optie 1">
-                                <label>Lactosevrij</label>
-                                <input type="checkbox" name="allergie" value="optie 2">
-                                <label>vegan</label>
-                                <input type="checkbox" name="allergie" value="optie 3">
+                                <div id="allergie">
+                                </div>
                             </td>
                         </tr>
 
@@ -241,7 +237,7 @@
                     <td> merk</td>
                     <td> productnaam</td>
                     <td class="categorie">categorie</td>
-                    <td>allergie-info</td>
+                    <td id="allergieinfo">allergie-info</td>
                 </tr>
                 </tbody>
             </table>
@@ -259,12 +255,8 @@
                 <option value="default">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Maak hier je keuze &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
             </select>
             <br/>
-            <label>Glutenvrij</label>
-            <input type="checkbox" name="allergie" id="gluten" onclick="">
-            <label>Lactosevrij</label>
-            <input type="checkbox" name="allergie" id="lactose" value="optie 2">
-            <label>Veganistisch </label>
-            <input type="checkbox" name="allergie" id="vegan" value="optie 3">
+            <div id="checkboxAllergie">
+            </div>
             <input id=button type="submit" value="opslaan">
         </form>
 
@@ -288,24 +280,30 @@
         addOptionsToSelect($("#categorie"), option);
     });
 
+    function addOptionstoCheckbox($checkbox, allergen) {
+        for (let allergens of allergen ) {
+            let $check = $ ('<input type ="checkbox">').attr("value", allergens.id).attr("id", allergens.name);
+            let $label = $ ('<Label>').attr ("for", allergens.name).text(allergens.name);
+            $checkbox.append ($check);
+            $checkbox.append ($label);
+
+        }
+
+    }
+
+    $.getJSON ("/api/allergens/all", function(option)
+    {
+        addOptionstoCheckbox($("#checkboxAllergie"),option)
+        addOptionstoCheckbox($("#allergie"),option)
+    });
+
 
     function allproducts() {
         $.getJSON("/api/product/all", function (data) {
             let $tbody = $("#producttablebody").empty();
             for (let product of data) {
-//                function allergens() {
-//                    for (let product of data) {
-//                        x = product.allergens[0];
-//                        for (i in product.allergens) {
-//                            x += product.allergens[i] + ",";
-//                        }
-//                    }
-//                }
-
 
                 //console.log(product.allergens);
-
-                console.log();
 
 
                 let $row = $('<tr>')
@@ -313,11 +311,47 @@
                     .append($('<td>').text(product.name))
                     .append($('<td>').text(product.brand))
                     .append($('<td>').text(product.categorie.categorie))
-                    .append($('<td>').text(product.allergens.map(o => o.name).join(', ')));
+                    .append($('<td>').text(product.allergens.map(o => o.name).join(', ')))
                 $tbody.append($row);
+                addImages()
             }
         });
     }
+
+   function addImages () {
+       var Elements=document.getElementsByTagName('td');
+       pictureGluten="002-circle.png";
+       pictureLactose="003-food.png";
+       pictureVegan="001-fruit.png";
+
+
+       for(var i=0;i<Elements.length;i++) {
+           if(Elements[i].innerText=='Glutenvrij, Lactosevrij') {
+               Elements[i].innerText=' ';
+               var img = document.createElement("img");
+               img.src=pictureGluten;
+               var img = document.createElement("img2");
+               img.src=pictureLactose;
+               Elements[i].appendChild (img);
+               Elements[i].appendChild (img);
+
+           }
+           if(Elements[i].innerText=='Veganistisch') {
+               Elements[i].innerText=' ';
+               var img = document.createElement("img");
+               img.src=pictureVegan;
+               Elements[i].appendChild (img );
+           }
+           if(Elements[i].innerText=='Lactosevrij') {
+               Elements[i].innerText=' ';
+               var img = document.createElement("img");
+               img.src=pictureLactose;
+               Elements[i].appendChild (img );
+           }
+
+   }
+   }
+
 
     function searchByEannummer() {
         $('#searchByEANNummer').on('keyup', function (e) {
@@ -337,6 +371,8 @@
             }
         });
     }
+
+
 
     function searchByName() {
         $('#searchByName').on('keyup', function (e) {
@@ -358,16 +394,18 @@
     }
 
     function searchByCategorie() {
-       var choice = new RegExp($('#dropdownmenu').val());
-       if (choice = "/-------- Maak hier je keuze --------/"){clearFilter()}
-       else {
-           $('#producttablebody').filter(function () {
-               return choice.test($(this).text());
-           }).show();
-       }
+        var reg = new RegExp($('#dropdownmenu').val());
+        if (reg == "/-------- Maak hier je keuze --------/"){clearFilter()}
+        else{
+            $('#producttablebody').hide();
+            $('#categorie').filter(function () {
+                return reg.test($('#categorie').text());
+            }).show();
+        }
     }
 
-    function clearFilter() {
+    function clearFilter(){
+        $('#dropdownmenu').val('');
         $('#producttablebody').show();
     }
 
@@ -384,7 +422,6 @@
         eanNumber : $('#eanNumber').val(),
         name: $('#name').val(),
         brand:$('#brand').val(),
-
         categorie: {
             id: $('#categorie').val()
         }
