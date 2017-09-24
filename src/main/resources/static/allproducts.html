@@ -112,8 +112,9 @@
             border: none;
         }
 
-        #producttablebody{
-            font-size: 10px;}
+        #producttablebody {
+            font-size: 10px;
+        }
 
         #button {
             background-color: #0e2f44;
@@ -136,9 +137,12 @@
             color: black;
         }
 
+        #allergieinfo {
+            align: center;
+        }
 
 
-</style>
+    </style>
 
 </head>
 <body>
@@ -226,7 +230,7 @@
                     <th>PRODUCTNAAM</th>
                     <th>MERK</th>
                     <th>CATEGORIE</th>
-                    <th>ALLERGIEINFO</th>
+                    <th>ALLERGENEN</th>
 
 
                 </tr>
@@ -237,7 +241,9 @@
                     <td> merk</td>
                     <td> productnaam</td>
                     <td class="categorie">categorie</td>
-                    <td id="allergieinfo">allergie-info</td>
+                    <td id="allergieinfo" align="center">glutenvrij</td>
+
+
                 </tr>
                 </tbody>
             </table>
@@ -274,27 +280,25 @@
         }
     }
 
-    $.getJSON ("/api/categorie/all", function(option)
-    {
+    $.getJSON("/api/categorie/all", function (option) {
         addOptionsToSelect($("#dropdownmenu"), option);
         addOptionsToSelect($("#categorie"), option);
     });
 
     function addOptionstoCheckbox($checkbox, allergen) {
-        for (let allergens of allergen ) {
-            let $check = $ ('<input type ="checkbox">').attr("value", allergens.id).attr("id", allergens.name);
-            let $label = $ ('<Label>').attr ("for", allergens.name).text(allergens.name);
-            $checkbox.append ($check);
-            $checkbox.append ($label);
+        for (let allergens of allergen) {
+            let $check = $('<input type ="checkbox">').attr("value", allergens.id).attr("id", allergens.name);
+            let $label = $('<Label>').attr("for", allergens.name).text(allergens.name);
+            $checkbox.append($check);
+            $checkbox.append($label);
 
         }
 
     }
 
-    $.getJSON ("/api/allergens/all", function(option)
-    {
-        addOptionstoCheckbox($("#checkboxAllergie"),option)
-        addOptionstoCheckbox($("#allergie"),option)
+    $.getJSON("/api/allergens/all", function (option) {
+        addOptionstoCheckbox($("#checkboxAllergie"), option)
+        addOptionstoCheckbox($("#allergie"), option)
     });
 
 
@@ -303,7 +307,7 @@
             let $tbody = $("#producttablebody").empty();
             for (let product of data) {
 
-                //console.log(product.allergens);
+                //console.log(product.allergens.map.split(','));
 
 
                 let $row = $('<tr>')
@@ -311,46 +315,94 @@
                     .append($('<td>').text(product.name))
                     .append($('<td>').text(product.brand))
                     .append($('<td>').text(product.categorie.categorie))
-                    .append($('<td>').text(product.allergens.map(o => o.name).join(', ')))
+                    .append($('<td>').text(product.allergens.map(o => o.name)))
                 $tbody.append($row);
                 addImages()
             }
         });
     }
 
-   function addImages () {
-       var Elements=document.getElementsByTagName('td');
-       pictureGluten="002-circle.png";
-       pictureLactose="003-food.png";
-       pictureVegan="001-fruit.png";
+    function addImages() {
+        var Elements = document.getElementsByTagName('td');
+        pictureGluten = "002-circle.png";
+        pictureLactose = "003-food.png";
+        pictureVegan = "001-fruit.png";
 
 
-       for(var i=0;i<Elements.length;i++) {
-           if(Elements[i].innerText=='Glutenvrij, Lactosevrij') {
-               Elements[i].innerText=' ';
-               var img = document.createElement("img");
-               img.src=pictureGluten;
-               var img = document.createElement("img2");
-               img.src=pictureLactose;
-               Elements[i].appendChild (img);
-               Elements[i].appendChild (img);
+        for (var i = 0; i < Elements.length; i++) {
+            if (Elements[i].innerText == 'Glutenvrij') {
+                Elements[i].innerText = ' ';
+                var img = document.createElement("img");
+                img.src = pictureGluten;
+                img.class = 'pictoGV'
+                Elements[i].appendChild(img);
+            }
+            if (Elements[i].innerText == 'Veganistisch') {
+                Elements[i].innerText = ' ';
+                var img = document.createElement("img");
+                img.src = pictureVegan;
+                img.class = 'pictoVG'
+                Elements[i].appendChild(img);
+            }
+            if (Elements[i].innerText == 'Lactosevrij') {
+                Elements[i].innerText = ' ';
+                var img = document.createElement("img");
+                img.src = pictureLactose;
+                img.class = 'pictoLV'
+                Elements[i].appendChild(img);
+            }
+            if (Elements[i].innerText == 'Glutenvrij,Lactosevrij') {
+                Elements[i].innerText = ' ';
+                var img = document.createElement("img");
+                img.src = pictureGluten;
+                img.class = 'pictoGV'
+                Elements[i].appendChild(img);
+                var img = document.createElement("img");
+                img.src = pictureLactose;
+                img.class = 'pictoLV'
+                Elements[i].appendChild(img);
+            }
+            if (Elements[i].innerText == 'Glutenvrij,Lactosevrij,Veganistisch') {
+                Elements[i].innerText = ' ';
+                var img = document.createElement("img");
+                img.src = pictureGluten;
+                img.class = 'pictoGV'
+                Elements[i].appendChild(img);
+                var img = document.createElement("img");
+                img.src = pictureLactose;
+                img.class = 'pictoLV'
+                Elements[i].appendChild(img);
+                var img = document.createElement("img");
+                img.src = pictureVegan;
+                img.class = 'pictoVG'
+                Elements[i].appendChild(img);
+            }
+            if (Elements[i].innerText == 'Lactosevrij,Veganistisch') {
+                Elements[i].innerText = ' ';
+                var img = document.createElement("img");
+                img.src = pictureLactose;
+                img.class = 'pictoLV'
+                Elements[i].appendChild(img);
+                var img = document.createElement("img");
+                img.src = pictureVegan;
+                img.class = 'pictoVG'
+                Elements[i].appendChild(img);
+            }
+            if (Elements[i].innerText == 'Glutenvrij,Veganistisch') {
+                Elements[i].innerText = ' ';
+                var img = document.createElement("img");
+                img.src = pictureGluten;
+                img.class = 'pictoGV'
+                Elements[i].appendChild(img);
+                var img = document.createElement("img");
+                img.src = pictureVegan;
+                img.class = 'pictoVG'
+                Elements[i].appendChild(img);
+            }
 
-           }
-           if(Elements[i].innerText=='Veganistisch') {
-               Elements[i].innerText=' ';
-               var img = document.createElement("img");
-               img.src=pictureVegan;
-               Elements[i].appendChild (img );
-           }
-           if(Elements[i].innerText=='Lactosevrij') {
-               Elements[i].innerText=' ';
-               var img = document.createElement("img");
-               img.src=pictureLactose;
-               Elements[i].appendChild (img );
-           }
 
-   }
-   }
+        }
+    }
 
 
     function searchByEannummer() {
@@ -371,7 +423,6 @@
             }
         });
     }
-
 
 
     function searchByName() {
@@ -395,8 +446,10 @@
 
     function searchByCategorie() {
         var reg = new RegExp($('#dropdownmenu').val());
-        if (reg == "/-------- Maak hier je keuze --------/"){clearFilter()}
-        else{
+        if (reg == "/-------- Maak hier je keuze --------/") {
+            clearFilter()
+        }
+        else {
             $('#producttablebody').hide();
             $('#categorie').filter(function () {
                 return reg.test($('#categorie').text());
@@ -404,29 +457,29 @@
         }
     }
 
-    function clearFilter(){
+    function clearFilter() {
         $('#dropdownmenu').val('');
         $('#producttablebody').show();
     }
 
-    function searchcat (){
-        var a = $('#producttablebody').on ('change', filter);
+    function searchcat() {
+        var a = $('#producttablebody').on('change', filter);
         var b = $
     }
 
 
-    $("#invulformulier").submit(function(e) {
+    $("#invulformulier").submit(function (e) {
         e.preventDefault();
 
         let product = {
-        eanNumber : $('#eanNumber').val(),
-        name: $('#name').val(),
-        brand:$('#brand').val(),
-        categorie: {
-            id: $('#categorie').val()
-        }
+            eanNumber: $('#eanNumber').val(),
+            name: $('#name').val(),
+            brand: $('#brand').val(),
+            categorie: {
+                id: $('#categorie').val()
+            }
 
-    };
+        };
 
         $.ajax({
             method: 'post',
@@ -439,9 +492,9 @@
             }
         });
 
+
     });
     allproducts();
-
 
 
     $(document).ready(function () {
@@ -453,14 +506,6 @@
         searchByName();
 
     });
-
-
-
-
-
-
-
-
 
 
 </script>

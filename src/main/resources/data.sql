@@ -30,7 +30,6 @@ insert into product (id, ean_number, brand, name, categorie_id) values (9600,'87
 
 insert into product_allergens (product_id, allergens_id) values (1000,1000);
 insert into product_allergens (product_id, allergens_id) values (1000,1001);
-insert into product_allergens (product_id, allergens_id) values (2000,1001);
 insert into product_allergens (product_id, allergens_id) values (2000,1002);
 insert into product_allergens (product_id, allergens_id) values (3000,1001);
 insert into product_allergens (product_id, allergens_id) values (3000,1000);
