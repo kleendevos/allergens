@@ -141,6 +141,11 @@
             align: center;
         }
 
+        h5{
+            float: right;
+            display: inline-block;
+        }
+
 
     </style>
 
@@ -251,7 +256,17 @@
 
                 </tr>
                 </tbody>
+                <figure>
+
+                    <h5><span>  &nbsp; &nbsp; </span><img src="001-fruit.png" style="float: right"> VEGANISTISCH <span>  &nbsp; </span></h5>
+                    <h5><span>  &nbsp; &nbsp; </span><img src="002-circle.png" style="float: right"> GLUTENVRIJ   <span>  &nbsp; </span></h5>
+                    <h5><img src="003-food.png" style="float: right"> LACTOSEVRIJ <span>  &nbsp; </span></h5>
+
+                </figure>
             </table>
+
+
+
         </div>
     </div>
 
@@ -367,7 +382,7 @@
                 Elements[i].innerText = ' ';
                 var img = document.createElement("img");
                 img.src = pictureGluten;
-                img.id = 'pictoGV'
+                img.id = 'pictoGV';
                 Elements[i].appendChild(img);
                 var img = document.createElement("img");
                 img.src = pictureLactose;
@@ -483,41 +498,20 @@
     }
 
 
-    /*function searchByCategorie() {
-        var reg = new RegExp($('#dropdownmenu').val());
-
-        console.log(reg);
-
-        if (reg == "/-------- Maak hier je keuze --------/") {
-            $('#producttablebody').show();
-        }
-        else {
-            $('#producttablebody').hide();
-            $('#categorie').filter(function () {
-                return reg.test($(this).text());
-            }).show();
-        }
-    }*/
-
-
-
-
     function searchByAllergens() {
-        $('#Glutenvrij').click(function () {
+        $('#Glutenvrij').select(function () {
+            var reg = new RegExp($('#Glutenvrij').val());
+
+            console.log(reg)
 
             });
-        
-        function getValueglutenvrij() {
-            
-        }
-
-
-
     }
 
 
     $("#invulformulier").submit(function (e) {
         e.preventDefault();
+
+        $('input[name="allergens"]');
 
         let product = {
             eanNumber: $('#eanNumber').val(),
@@ -526,7 +520,11 @@
             categorie: {
                 id: $('#categorie').val()
             },
-
+            allergens: [
+                { id: 1000 },
+                { id: 1001 },
+                { id: 1002 }
+            ]
         };
 
 
@@ -542,8 +540,10 @@
         });
 
 
+
     });
     allproducts();
+
 
     function checkboxAllergens (){
         var box = document.getElementsByClassName('allergens');
