@@ -508,8 +508,6 @@
     $("#invulformulier").submit(function (e) {
         e.preventDefault();
 
-        $('input[name="allergens"]');
-
         let product = {
             eanNumber: $('#eanNumber').val(),
             name: $('#name').val(),
@@ -517,13 +515,8 @@
             categorie: {
                 id: $('#categorie').val()
             },
-            allergens: [
-                { id: 1000 },
-                { id: 1001 },
-                { id: 1002 }
-            ]
+            allergens: extractAllergensFromForm(this).map(id => {return {id}})
         };
-
 
         $.ajax({
             method: 'post',
@@ -541,6 +534,22 @@
     });
     allproducts();
 
+
+    /**
+     * Extracts the selection of allergens from the given form.
+     * @param form The form to retrieve inputs with name 'allergens' from.
+     * @returns {Array} The ids of allergens selected by the user on the given form.
+     */
+    function extractAllergensFromForm(form) {
+        let $allergens = $(form).find("input[name='allergens']");
+        let ids = [];
+        $allergens.each((i, a) => {
+            if(a.checked) {
+                ids.push(Number.parseInt(a.value));
+            }
+        });
+        return ids;
+    }
 
     function checkboxAllergens (){
         let box = document.getElementsByClassName('allergens');
