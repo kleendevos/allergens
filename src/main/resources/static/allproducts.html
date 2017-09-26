@@ -113,7 +113,7 @@
         }
 
         #producttablebody {
-            font-size: 10px;
+            font-size: 11px;
         }
 
         #button {
@@ -270,14 +270,14 @@
     </div>
 
 
-    <div id="invulformulier">
-        <form>
+    <div>
+        <form id="invulformulier">
             <h1>VOEG ARTIKEL TOE </h1>
             <input id="eanNumber" type="text" placeholder="EAN-NUMMER">
             <input id="name" type="text" placeholder="PRODUCTNAAM">
             <input id="brand" type="text" placeholder="MERK">
             <select id="categorie">
-                <option value="default">&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Maak hier je keuze &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
+                <option value="default">-------- Maak hier je keuze --------;</option>
             </select>
             <br/>
             <div id="checkboxAllergie">
@@ -352,22 +352,49 @@
         $.getJSON("/api/product/all", function (data) {
             for (let product of data) {
                 var all = product.allergens.map(o => o.id);
+
                 console.log(all);
 
-            }
-            for (let i = 0; i < all.length; i++) {
-                console.log(all.includes());
-            }
+                $('#allergie').click(function () {
+                    let value = extractAllergensFromForm(this);
+                    console.log(value);
+                    console.log (all);
+                    //console.log (sel);
 
 
-            $('#allergie').click(function () {
-                let reg = extractAllergensFromForm(this);
-                console.log(reg);
-                console.log(all.includes[reg]);
+                    anyMatch(all, value);
 
-                for (let i = 0; i < all.length; i++) {
-                    if (all.includes([1000])) {
-                        console.log("Hello");
+
+                    function anyMatch(list, searchee) {
+                        let res = [];
+                        var all = list.map(o => o.id);
+                        for(let s of searchee) {
+                            if(list.includes(s)) {
+                                res.push();
+                            }
+                        }
+
+                        return res;
+                    }
+
+
+                    for(let prod of data) {
+                        if(prod.allergens.indexOf())
+                    }
+
+                        //console.log(sel)
+
+//                    for(let j=0; j<value.length; i++) {
+//                        let sel=sel.indexOf(1000);
+//
+//
+//                        }
+                    }
+                    if (all.indexOf(value)){
+
+
+
+
                         /*$('#producttablebody').find('tr').each(function () {
                             let $me = $(this);
                             console.log($me);
@@ -378,7 +405,15 @@
                             }*/
                     }
 
-                } //else {
+                })
+
+            }
+
+
+
+
+
+                //else {
                 //$('#producttablebody').find('tr').show();
 
 
@@ -386,7 +421,7 @@
             })
 
 
-        });
+
 
     }
 
@@ -584,8 +619,12 @@
             }
         });
 
+        this.reset();
+
     });
     allproducts();
+
+
 
 
     /**
